@@ -8,7 +8,7 @@ createApp({
     data(){
        return{
 
-        conStacts: [
+        contacts: [
           {     
             // img da png a jpg
                 name: 'Michele',
