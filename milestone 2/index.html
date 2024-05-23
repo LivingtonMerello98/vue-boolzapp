@@ -9,10 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <title>Boolzap/milestone 1</title>
+    <title>Boolzap/milestone 2</title>
 </head>
 <body>
-    <!-- milestone 1 -->
+    <!-- milestone 2 -->
    <div class="container" id="app">
     <!-- left-col -->
     <div class="sidebar">
@@ -47,61 +47,69 @@
                 <input type="text" id="inputText-search" name="inputText" placeholder="Cerca o inizia una nuova chat">
             </form>
         </div>
+        
         <ul class="chats">
-            <!-- chats -->
-            
-            <li v-for="contact in contacts" :key="contact.name">
-                <div class="profile-chats-container d-flex j-between">
+            <li v-for="(contact, ciao) in contacts" :key="contact.name" @click="openChats(ciao)">
+               <div class="profile-chats-container d-flex j-between">
                   <div class="profile-name my-mx-5-10 d-flex align-center">
-                    <div class="avatar-container">
-                      <img :src="contact.avatar" class="avatar" :alt="contact.name + ' avatar'">
-                    </div>
-                    <div class="chat-name my-mx-5">
-                      <div class="name">{{ contact.name }}</div>
-                      <span class="access">
+                     <div class="avatar-container">
+                        <img :src="contact.avatar" class="avatar" :alt="contact.name + ' avatar'">
+                     </div>
+                     <div class="chat-name my-mx-5">
+                        <div class="name">{{ contact.name }}</div>
+                        <span class="access">
                         {{ contact.messages[0].message }}
-                      </span>
-                    </div>
+                        </span>
+                     </div>
                   </div>
-                </div>
-              </li>
-        </ul>
+               </div>
+            </li>
+         </ul>
+          
     </div>
     <!-- right-col -->
     <div class="content">
-        <header class="header d-flex j-between ">
+        <!-- header -->
+        <header class="header d-flex j-between" v-if="selectedChatIndex !== null">
             <div class="profile-name my-mx-5-10 d-flex align-center">
-                <div class="avatar-container">
-                    <img src="./assets/img/avatar_1.jpg" class="avatar">
-                </div>
-                <div class="chat-name-header my-mx-5">
-                    <div class="name">Michele</div>
-                    <span class="access">Ultimo accesso oggi alle 16:26</span>
-                </div>
+               <div class="avatar-container">
+                  <img :src="contacts[selectedChatIndex].avatar" class="avatar" :alt="contacts[selectedChatIndex].name + ' avatar'">
+               </div>
+               <div class="chat-name-header my-mx-5">
+                  <div class="name">{{ contacts[selectedChatIndex].name }}</div>
+                  <span class="access">Ultimo accesso oggi alle 16:26</span>
+               </div>
             </div>
             <div class="icon d-flex align-center px-10">
-                <i class="fa-solid fa-video mx-10"></i>
-                <i class="fa-solid fa-paperclip"></i>
+               <i class="fa-solid fa-video mx-10"></i>
+               <i class="fa-solid fa-paperclip"></i>
             </div>
-        </header>
+         </header>
+        <!-- conversation section -->
         <ul class="conversation flex-col">
             <li class="row my-mx-30-30">
                 <div class="grow-1"></div>
                 <div class="message-balloon">
-                    <p class="l-h">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde accusamus nulla voluptate sunt ipsa natus deleniti nam voluptatum. Quia velit reiciendis, aut quasi nobis sed excepturi facere. Excepturi, impedit earum.</p>
+                    <p class="l-h">user message</p>
                 </div>
             </li>
-            <li class="row my-mx-30-30">
+            <li class="row my-mx-30-30" >
                 <div class="message-balloon">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, id commodi beatae fuga unde deserunt sint temporibus aperiam nemo, aliquam animi! Error, est laborum. Cupiditate laboriosam soluta molestias corporis odit.</p>
+                    <p>{{ contacts[selectedChatIndex].messages[0].message }}</p>
                 </div>
                 <div class="grow-1"></div>
             </li>
             <li class="row my-mx-30-30">
                 <div class="grow-1"></div>
                 <div class="message-balloon">
-                    <p class="l-h">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde accusamus nulla voluptate sunt ipsa natus deleniti nam voluptatum. Quia velit reiciendis, aut quasi nobis sed excepturi facere. Excepturi, impedit earum.</p>
+                    <p class="l-h">user message</p>
                 </div>
+            </li>
+            <li class="row my-mx-30-30" >
+                <div class="message-balloon">
+                    <p>{{ contacts[selectedChatIndex].messages[1].message }}</p>
+                </div>
+                <div class="grow-1"></div>
             </li>
         </ul>
         <div class="message d-flex align-center justify-center">

@@ -7,7 +7,6 @@ const { createApp } = Vue;
 createApp({
     data(){
        return{
-
         contacts: [
           {     
             // img da png a jpg
@@ -171,10 +170,16 @@ createApp({
                     }
                 ],
             }
-        ]
+        ],
+        selectedChatIndex: 0 // Indice della chat selezionata  
        }
     },
     methods:{
         // funzioni
+        openChats(contactIndex){
+            this.selectedChatIndex = contactIndex
+            console.log('key pressed',contactIndex)
+            console.log(this.contacts[contactIndex].name)
+        }
     }
 }).mount('#app')
