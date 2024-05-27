@@ -172,7 +172,7 @@ createApp({
             ],
             selectedChatIndex: 0, // Indice della chat selezionata  
             newMessage: '',
-            searchQuery: '' // Campo per la ricerca
+            searchQuery: '', // Campo per la ricerca
         }
     },
     watch: {

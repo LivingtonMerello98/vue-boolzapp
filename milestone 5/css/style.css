@@ -1,0 +1,16 @@
+/*import css files*/
+@import url('./partials/utility.css');
+@import url('./partials/commons.css');
+@import url('./partials/responsive.css');
+
+/*color var*/
+:root{
+    --header-color: #EAEAEA;
+    --notification-color: #8FDAFC;
+    --icon-color: #B5B5B5;
+    --thin-font: rgb(141, 141, 141) ;
+    --message-sent:#D4F9BB;
+    --message-recived:#FFFFFF;
+}
+
+
