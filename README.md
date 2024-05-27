@@ -1,3 +1,38 @@
+
+Boolzap è un'applicazione web sviluppata con Vue.js per la messaggistica istantanea simile a WhatsApp. Consente agli utenti di comunicare tra loro attraverso chat individuali.
+
+Funzionalità
+
+    •Visualizzazione della lista dei contatti
+    •Apertura delle chat individuali
+    •Invio e ricezione di messaggi
+    •Ricerca dei contatti
+    •Gestione della visibilità dei messaggi
+
+
+
+Struttura del Progetto
+Il progetto è strutturato in 4 file principali:
+
+    •index.html: Contiene la struttura HTML della pagina web e l'inclusione delle librerie esterne.
+
+    •CSS: contiene fogli di stile e gestione della rsponsività per mobile,tablet e dekstop
+
+    •assets: risorse grafiche
+
+    •script/main.js: Contiene il codice JavaScript per l'interazione dinamica con la pagina HTML utilizzando il framework Vue.js.
+
+
+
+Sviluppatore
+    •Nome: Livington Merello
+    •Email: livington.merello@gmail.com
+    •GitHub: LivingtonMerello98
+
+
+/******
+
+
 Milestone 1
 Replica della grafica con la possibilità di avere messaggi scritti dall’utente (verdi) e dall’interlocutore (bianco) assegnando due classi CSS diverse
 Visualizzazione dinamica della lista contatti: tramite la direttiva v-for, visualizzare nome e immagine di ogni contatto

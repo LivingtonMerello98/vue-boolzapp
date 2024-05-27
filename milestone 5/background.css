@@ -1,3 +1,13 @@
+/* .bg-image {
+    background-image: url('https://media.timeout.com/images/105212586/750/562/image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+} */
+
 .bg-image {
     background-image: url('./assets/img/mine.jpg');
-}
+    /* background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;; */
+} 

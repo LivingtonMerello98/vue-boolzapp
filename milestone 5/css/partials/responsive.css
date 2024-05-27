@@ -29,8 +29,12 @@ responsive
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
+        width: auto;
         /* overflow: hidden; */
-        
+    }
+
+    .content{
+        display: block;
     }
 
     /* side-bar */

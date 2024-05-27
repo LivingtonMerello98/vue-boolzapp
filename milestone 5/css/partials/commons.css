@@ -36,17 +36,26 @@ body{
   background-color: aqua;
 }
 
-.sidebar{
-  display: none;
+/* classe per container contatti */
+.sidebar {
+  display: block;
+  width: 100%;
   background-color: aquamarine;
 }
 
-.content{
+/* classe per container chat */
+.content {
+  display: block;
   flex-grow: 1;
   overflow: hidden;
-  background-color:beige;
+  background-color: beige;
   position: relative;
 }
+
+.d-none {
+  display: none;
+}
+
 
 header{
   background-color:var(--header-color);
@@ -110,6 +119,7 @@ header{
 
 .message #inputText::placeholder {
   color: gray; /* Placeholder grigio */
+  font-size: 0.8rem;
 }
 
 .icon i{
@@ -162,6 +172,7 @@ items
   background-color:var(--notification-color);
   min-height:10%;
   flex-shrink: 0;
+  display: block;
 }
 
 .notification-text .alert{
@@ -195,16 +206,22 @@ items
   height: auto;
 }
 
+
+/*-------------*/
 .search #inputText-search {
   border: 0px solid;
   border-radius:5px;
-  padding: 5px;
-  width: 100%;
+  padding: 1rem 1rem 1rem 1rem;
+  width: 95%;
   height: 2.5rem; 
   font-size: 14px;
-  color: var(--thin-font);
+  color: black;
 }
 
+.search #inputText-search::placeholder {
+  color: gray; /* Placeholder grigio */
+  font-size: 0.8rem;
+}
 
 
 

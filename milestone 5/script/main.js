@@ -5,6 +5,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            // array di contatti
             contacts: [
                 {
                     name: 'Michele',
@@ -89,12 +90,14 @@ createApp({
                         {
                             date: '10/01/2020 15:30:55',
                             message: 'Lo sai che ha aperto una nuova pizzeria?',
-                            status: 'sent'
+                            status: 'sent',
+                            showFlag: false
                         },
                         {
                             date: '10/01/2020 15:50:00',
                             message: 'Si, ma preferirei andare al cinema',
-                            status: 'received'
+                            status: 'received',
+                            showFlag: false
                         }
                     ],
                 },
@@ -106,12 +109,14 @@ createApp({
                         {
                             date: '10/01/2020 15:30:55',
                             message: 'Ricordati di chiamare la nonna',
-                            status: 'sent'
+                            status: 'sent',
+                            showFlag: false
                         },
                         {
                             date: '10/01/2020 15:50:00',
                             message: 'Va bene, stasera la sento',
-                            status: 'received'
+                            status: 'received',
+                            showFlag: false
                         }
                     ],
                 },
@@ -123,17 +128,20 @@ createApp({
                         {
                             date: '10/01/2020 15:30:55',
                             message: 'Ciao Claudia, hai novità?',
-                            status: 'sent'
+                            status: 'sent',
+                            showFlag: false
                         },
                         {
                             date: '10/01/2020 15:50:00',
                             message: 'Non ancora',
-                            status: 'received'
+                            status: 'received',
+                            showFlag: false
                         },
                         {
                             date: '10/01/2020 15:51:00',
                             message: 'Nessuna nuova, buona nuova',
-                            status: 'sent'
+                            status: 'sent',
+                            showFlag: false
                         }
                     ],
                 },
@@ -145,12 +153,14 @@ createApp({
                         {
                             date: '10/01/2020 15:30:55',
                             message: 'Fai gli auguri a Martina che è il suo compleanno!',
-                            status: 'sent'
+                            status: 'sent',
+                            showFlag: false
                         },
                         {
                             date: '10/01/2020 15:50:00',
                             message: 'Grazie per avermelo ricordato, le scrivo subito!',
-                            status: 'received'
+                            status: 'received',
+                            showFlag: false
                         }
                     ],
                 },
@@ -162,17 +172,20 @@ createApp({
                         {
                             date: '10/01/2020 15:30:55',
                             message: 'Ciao, andiamo a mangiare la pizza stasera?',
-                            status: 'received'
+                            status: 'received',
+                            showFlag: false
                         },
                         {
                             date: '10/01/2020 15:50:00',
                             message: 'No, l\'ho già mangiata ieri, ordiniamo sushi!',
-                            status: 'sent'
+                            status: 'sent',
+                            showFlag: false
                         },
                         {
                             date: '10/01/2020 15:51:00',
                             message: 'OK!!',
-                            status: 'received'
+                            status: 'received',
+                            showFlag: false
                         }
                     ],
                 }            
@@ -180,78 +193,118 @@ createApp({
             selectedChatIndex: 0, // Indice della chat selezionata  
             newMessage: '',
             searchQuery: '', // Campo per la ricerca
+            isChatOpen: false, // Booleano per controllare se la chat è aperta
+            isTyping: false, //booleano per tracciare quando il "bot" sta digitando
         }
     },
     watch: {
+
+    // Funzione che viene chiamata quando la query di ricerca viene modificata
         searchQuery(newQuery) {
-            this.updateContactVisibility(newQuery);
+        // Aggiorna la visibilità dei contatti in base alla nuova query di ricerca
+        this.updateContactVisibility(newQuery);
         }
+
     },
     methods: {
-        // Funzione per aggiornare la visibilità dei contatti
+        // Funzione per aggiornare la visibilità dei contatti in base alla query di ricerca
         updateContactVisibility(query) {
-            query = query.toLowerCase().trim();
-            this.contacts.forEach(contact => {
-                contact.visible = contact.name.toLowerCase().includes(query);
-            });
+        // Trasforma la query in minuscolo e rimuove gli spazi bianchi in eccesso
+        query = query.toLowerCase().trim();
+        // Itera su ogni contatto
+        this.contacts.forEach(contact => {
+            // Imposta la visibilità del contatto in base alla corrispondenza con la query
+            contact.visible = contact.name.toLowerCase().includes(query);
+        });
         },
 
-        // Input per apertura chat
+
+        // Funzione per aprire una chat quando un contatto viene cliccato
         openChats(contactIndex) {
-            this.selectedChatIndex = contactIndex;
-            console.log('Chat aperta:', this.contacts[contactIndex].name);
+        // Imposta l'indice della chat selezionata sul contatto cliccato
+        this.selectedChatIndex = contactIndex;
+        // Mostra la finestra della chat
+        this.isChatOpen = true;
+        // Registra nel registro la chat aperta
+        console.log('Chat aperta:', this.contacts[contactIndex].name);
         },
 
-        // Messaggio inviato
+
+        // Funzione per inviare un messaggio
         sendMessage() {
-            if (this.newMessage.trim() !== '') {
-                const myMessage = {
-                    date: new Date().toLocaleString(),
-                    message: this.newMessage,
-                    status: 'sent',
-                    showFlag: false
-                };
-                this.contacts[this.selectedChatIndex].messages.push(myMessage);
-                this.newMessage = ''; // Pulizia campo di input
+        // Controlla se il campo di input non è vuoto
+        if (this.newMessage.trim() !== '') {
+        // Crea un oggetto per il messaggio inviato
+            const myMessage = {
+                date: new Date().toLocaleString(), // Ottiene la data e l'ora corrente
+                message: this.newMessage, // Ottiene il testo del messaggio dal campo di input
+                status: 'sent', // Imposta lo stato del messaggio come inviato
+                showFlag: false // Imposta la visibilità del flag a false
+            };
+            // Aggiunge il messaggio inviato alla lista dei messaggi del contatto selezionato
+            this.contacts[this.selectedChatIndex].messages.push(myMessage);
+            // Pulisce il campo di input dopo l'invio del messaggio
+            this.newMessage = '';
+
+            // Imposta isTyping su true per simulare la digitazione
+            this.isTyping = true;
 
                 // Invia la risposta automatica dopo 1 secondo
-                setTimeout(this.receiveMessage, 1000);
+                setTimeout(() => {
+                    // Chiama la funzione per ricevere un messaggio di risposta
+                    this.receiveMessage();
+                    // Imposta isTyping su false dopo aver ricevuto il messaggio di risposta
+                    this.isTyping = false;
+                }, 5000); // 5000 millisecondi (5 secondi) di ritardo per simulare una risposta automatica
             }
         },
 
-        // Messaggio ricevuto
+        // Funzione per ricevere un messaggio di risposta automatica
         receiveMessage() {
+            // Array di risposte possibili
             const responses = [
                 'ciaoooo',
                 'guarda, adesso non posso risponderti...ci sentiam più tardi? :)',
                 'ho visto il messaggio, torno a casa e ti rispondo... a dopo!',
                 'dammi giusto qualche secondo... ci sei stasera no?',
-                'ma da quanto tempo!'
+                'ma da quanto tempo!',
+                'hei, sono in ufficio adesso',
+                'ehi non posso risponderti, ti chiamo più tardi?'
             ];
+            // Genera una risposta casuale selezionando un elemento dall'array
             const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            // Crea un oggetto per il messaggio ricevuto
             const botMessage = {
-                date: new Date().toLocaleString(),
-                message: randomResponse,
-                status: 'received',
-                showFlag: false
+                date: new Date().toLocaleString(), // Ottiene la data e l'ora corrente
+                message: randomResponse, // Ottiene una risposta casuale dall'array
+                status: 'received', // Imposta lo stato del messaggio come ricevuto
+                showFlag: false // Imposta la visibilità del flag a false
             };
+            // Aggiunge il messaggio ricevuto alla lista dei messaggi del contatto selezionato
             this.contacts[this.selectedChatIndex].messages.push(botMessage);
         },
 
-        // Gestione visibilità flag
+        // Funzione per gestire la visibilità del flag di un messaggio
         flag(index) {
+            // Itera attraverso tutti i messaggi del contatto attualmente selezionato
             this.contacts[this.selectedChatIndex].messages.forEach((message, i) => {
-                message.showFlag = i === index ? !message.showFlag : false;
+            // Se l'indice del messaggio corrente è uguale all'indice passato come parametro,
+            // allora inverte lo stato di visibilità del flag; altrimenti, imposta la visibilità a false
+            message.showFlag = i === index ? !message.showFlag : false;
             });
         },
 
         deleteMessage(messageIndex) {
             console.log('messaggio eliminato:', messageIndex);
             this.contacts[this.selectedChatIndex].messages.splice(messageIndex, 1);
+        },
+
+        // Funzione per chiudere la chat e mostrare la sidebar
+        closeChat() {
+            this.isChatOpen = false;
         }
     },
     mounted() {
         this.updateContactVisibility(this.searchQuery);
     }                       
 }).mount('#app');
-
