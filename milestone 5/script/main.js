@@ -188,7 +188,7 @@ createApp({
                             showFlag: false
                         }
                     ],
-                }            
+                }
             ],
             selectedChatIndex: 0, // Indice della chat selezionata  
             newMessage: '',
@@ -199,55 +199,53 @@ createApp({
     },
     watch: {
 
-    // Funzione che viene chiamata quando la query di ricerca viene modificata
+        // Funzione che viene chiamata quando la query di ricerca viene modificata
         searchQuery(newQuery) {
-        // Aggiorna la visibilità dei contatti in base alla nuova query di ricerca
-        this.updateContactVisibility(newQuery);
+
+            this.updateContactVisibility(newQuery);
         }
 
     },
     methods: {
         // Funzione per aggiornare la visibilità dei contatti in base alla query di ricerca
         updateContactVisibility(query) {
-        // Trasforma la query in minuscolo e rimuove gli spazi bianchi in eccesso
-        query = query.toLowerCase().trim();
-        // Itera su ogni contatto
-        this.contacts.forEach(contact => {
-            // Imposta la visibilità del contatto in base alla corrispondenza con la query
-            contact.visible = contact.name.toLowerCase().includes(query);
-        });
+
+            query = query.toLowerCase().trim();
+
+            this.contacts.forEach(contact => {
+
+                contact.visible = contact.name.toLowerCase().includes(query);
+            });
         },
 
 
         // Funzione per aprire una chat quando un contatto viene cliccato
         openChats(contactIndex) {
-        // Imposta l'indice della chat selezionata sul contatto cliccato
-        this.selectedChatIndex = contactIndex;
-        // Mostra la finestra della chat
-        this.isChatOpen = true;
-        // Registra nel registro la chat aperta
-        console.log('Chat aperta:', this.contacts[contactIndex].name);
+
+            this.selectedChatIndex = contactIndex;
+
+            this.isChatOpen = true;
+
+            console.log('Chat aperta:', this.contacts[contactIndex].name);
         },
 
 
         // Funzione per inviare un messaggio
         sendMessage() {
-        // Controlla se il campo di input non è vuoto
-        if (this.newMessage.trim() !== '') {
-        // Crea un oggetto per il messaggio inviato
-            const myMessage = {
-                date: new Date().toLocaleString(), // Ottiene la data e l'ora corrente
-                message: this.newMessage, // Ottiene il testo del messaggio dal campo di input
-                status: 'sent', // Imposta lo stato del messaggio come inviato
-                showFlag: false // Imposta la visibilità del flag a false
-            };
-            // Aggiunge il messaggio inviato alla lista dei messaggi del contatto selezionato
-            this.contacts[this.selectedChatIndex].messages.push(myMessage);
-            // Pulisce il campo di input dopo l'invio del messaggio
-            this.newMessage = '';
 
-            // Imposta isTyping su true per simulare la digitazione
-            this.isTyping = true;
+            if (this.newMessage.trim() !== '') {
+                // Crea un oggetto per il messaggio inviato
+                const myMessage = {
+                    date: new Date().toLocaleString(),
+                    message: this.newMessage,
+                    status: 'sent',
+                    showFlag: false
+                };
+                // Aggiunge il messaggio inviato alla lista dei messaggi del contatto selezionato
+                this.contacts[this.selectedChatIndex].messages.push(myMessage);
+                this.newMessage = '';
+
+                this.isTyping = true;
 
                 // Invia la risposta automatica dopo 1 secondo
                 setTimeout(() => {
@@ -288,9 +286,9 @@ createApp({
         flag(index) {
             // Itera attraverso tutti i messaggi del contatto attualmente selezionato
             this.contacts[this.selectedChatIndex].messages.forEach((message, i) => {
-            // Se l'indice del messaggio corrente è uguale all'indice passato come parametro,
-            // allora inverte lo stato di visibilità del flag; altrimenti, imposta la visibilità a false
-            message.showFlag = i === index ? !message.showFlag : false;
+                // Se l'indice del messaggio corrente è uguale all'indice passato come parametro,
+                // allora inverte lo stato di visibilità del flag; altrimenti, imposta la visibilità a false
+                message.showFlag = i === index ? !message.showFlag : false;
             });
         },
 
@@ -306,5 +304,5 @@ createApp({
     },
     mounted() {
         this.updateContactVisibility(this.searchQuery);
-    }                       
+    }
 }).mount('#app');
